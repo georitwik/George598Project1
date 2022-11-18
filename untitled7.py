@@ -16,7 +16,7 @@ import torch as t
 import torch.nn as nn
 from torch import optim
 from torch.nn import utils
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt    # showing error for this line ?? package not installed??
 
 logger = logging.getLogger(__name__)
 
