@@ -17,6 +17,7 @@ import torch.nn as nn
 from torch import optim
 from torch.nn import utils
 import matplotlib.pyplot as plt    # showing error for this line ?? package not installed??
+                                   #installed the required package. Initial code now running
 
 logger = logging.getLogger(__name__)
 
@@ -68,7 +69,7 @@ class Dynamics(nn.Module):
         # Update state
         # Note: Same as above. Use operators on matrices/tensors as much as possible. Do not use element-wise operators as they are considered inplace.
         step_mat = t.tensor([[1., FRAME_TIME],
-                            [0., 1.]])
+                            [0., 1.0]])
         state = t.matmul(step_mat, state)
 
         return state
