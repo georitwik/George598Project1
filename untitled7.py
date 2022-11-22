@@ -58,17 +58,18 @@ class Dynamics(nn.Module):
         # Normally, we would do x[1] = x[1] + gravity * delta_time
         # but this is not allowed in PyTorch since it overwrites one variable (x[1]) that is part of the computational graph to be differentiated.
         # Therefore, I define a tensor dx = [0., gravity * delta_time], and do x = x + dx. This is allowed... 
+
+       
+        delta_state_gravity = t.tensor([0., GRAVITY_ACCEL * FRAME_TIME])
+
+        # Thrust
+        # Note: Same reason as above. Need a 2-by-1 tensor.
         N=len(state)
         
         state_tensor=t.zeros((N,5))
         state_tensor=[:,1]=-t.sin(state[:,4]) #Vx(velocity in x-direction i.e. horizontal direction)
         state_tensor=[:,3]=t.cos(state[:,4]) #Vy(velocity in y-direction i.e. vertical direction)
-        
-        delta_state_gravity = t.tensor([0., GRAVITY_ACCEL * FRAME_TIME])
-
-        # Thrust
-        # Note: Same reason as above. Need a 2-by-1 tensor.
-        delta_state = BOOST_ACCEL * FRAME_TIME * t.tensor([0., -1.]) * action
+        delta_state = BOOST_ACCEL * FRAME_TIME * t.mul(state_tensor([0., -1.]) , action[:,0].reshape(-1,1) # we used reshape (-1,1) to arrange the data in a column matrix
          # Update velocity
         state = state + delta_state + delta_state_gravity
         
