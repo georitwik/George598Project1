@@ -69,9 +69,22 @@ class Dynamics(nn.Module):
         state_tensor=t.zeros((N,5))
         state_tensor=[:,1]=-t.sin(state[:,4]) #Vx(velocity in x-direction i.e. horizontal direction)
         state_tensor=[:,3]=t.cos(state[:,4]) #Vy(velocity in y-direction i.e. vertical direction)
-        delta_state = BOOST_ACCEL * FRAME_TIME * t.mul(state_tensor([0., -1.]) , action[:,0].reshape(-1,1) # we used reshape (-1,1) to arrange the data in a column matrix
-         # Update velocity
-        state = state + delta_state + delta_state_gravity
+        delta_state = BOOST_ACCEL * FRAME_TIME * t.mul(state_tensor([0., -1.]) , action[:,0].reshape(-1,1)) # we used reshape (-1,1) to arrange the data in a column matrix
+        # orientation(theta)
+        delta_state_theta=FRAME_TIME*t.mul(t.tensor([0.,0.,0.,0.,-1.]),action[:,1].reshape(-1,1))     
+        state1=state #done to avoid in-line operation
+        #drag force
+        #drag force= -0.5*coefficient of drag*density of surrounding air*reference area*(velocity)^2
+        c_d=0.75 #taking the typical value of coefficient of drag(c_d) for a rocket as given in the NASA website
+        d=1.225 #density of air at mean sea level
+        a=6.16 #area of a PSLV rocket of ISRO (diameter=2.8m) info taken from website of ISRO
+        drag_force=(-0.5)*c_d*d*a*(state1)^2
+                
+                                                              
+        # Update velocity
+        
+      
+        state = state1 + delta_state + delta_state_gravity+delta_state_theta+drag_force
         
         # Update state
         # Note: Same as above. Use operators on matrices/tensors as much as possible. Do not use element-wise operators as they are considered inplace.
