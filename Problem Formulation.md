@@ -33,10 +33,13 @@ Equations for the problem :
    state x = [dx,dy,Vx,Vy,θ]^T
    action a = [α,∆θ]
    Drag   Fd= -1/2.Cd.ρ.A.(speed)^2
+   
+   
                   where Fd= Drag force on the rocket
                         Cd= Coefficient of drag (=0.75 for a typical rocket during landing)
                         ρ= Density of surrounding air (=1.225 kg/m^3 is density of air at mean sea level)
                         A= Reference area (=6.16 m^2 for PSLV of ISRO)
+                        
                         
    Dynamics: 
    
