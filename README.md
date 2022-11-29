@@ -17,6 +17,7 @@ For each time step, we assign a loss as a function of the control input and the 
 . This loss encourages the rocket to reach d(T)=0 and v(T)=0 , which are proper landing conditions.
 
 The optimization problem is now formulated as:
+
                                                     min ||x(T)||^2
  	                                                   θ
                                                      
