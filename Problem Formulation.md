@@ -27,6 +27,25 @@ The optimization problem is now formulated as:
  
 While this problem is constrained, it is easy to see that the objective function can be expressed as a function of x(T-1) & a(T-1) , where x(T-1) is a function of x(T-2) & a(T-2) and so on. Thus it is essentially an unconstrained problem with respect to θ.
 
+Equations for the problem ;
+
+   state x = [dx,dy,Vx,Vy,θ]^T
+   action a = [α,∆θ]
+   Drag   Fd= -1/2.Cd.ρ.A.(speed)^2
+                  where Fd= Drag force on the rocket
+                        Cd= Coefficient of drag (=0.75 for a typical rocket during landing)
+                        ρ= Density of surrounding air (=1.225 kg/m^3 is density of air at mean sea level)
+                        A= Reference area (=6.16 m^2 for PSLV of ISRO)
+                        
+   Dynamics: 
+   
+             dx(t+1)= dx(t) + Vx(t).∆t-1/2.∆t^2.α.sinθ(t)
+             dy(t+1)= dy(t) + Vy(t).∆t+1/2.∆t^2.(α.cosθ(t)-g)
+             Vx(t+1)= Vx(t) - ∆t.α.sinθ(t)
+             Vy(t+1)= Vx(t) + ∆t.α.sinθ(t)
+             θ(t+1)= θ(t) + ∆θ
+             
+
 We calculated the gradient of the loss function ∇_θ(l(x(T),a(T)) using LBFGS and ran the code for number of iterations = 40. We ran the code and got convergence on our results after around 23 iterations .
 
 
