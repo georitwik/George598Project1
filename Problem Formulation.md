@@ -27,7 +27,8 @@ The optimization problem is now formulated as:
  
 While this problem is constrained, it is easy to see that the objective function can be expressed as a function of x(T-1) & a(T-1) , where x(T-1) is a function of x(T-2) & a(T-2) and so on. Thus it is essentially an unconstrained problem with respect to θ.
 
-Equations for the problem ;
+Equations for the problem :
+
 
    state x = [dx,dy,Vx,Vy,θ]^T
    action a = [α,∆θ]
