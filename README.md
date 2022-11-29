@@ -25,7 +25,8 @@ The optimization problem is now formulated as:
                                                            v(t+1)= v(t) +a(t)∆t 
                                                            a(t)= f_θ (x(t)) ⩝t= 1,……….T-1
  
-While this problem is constrained, it is easy to see that the objective function can be expressed as a function of x(T-1) & a(T-1) , where  as a function of  and , and so on. Thus it is essentially an unconstrained problem with respect to .
+While this problem is constrained, it is easy to see that the objective function can be expressed as a function of x(T-1) & a(T-1) , where x(T-1) is a function of x(T-2) & a(T-2) and so on. Thus it is essentially an unconstrained problem with respect to θ.
 
-In the following, we code this problem up with PyTorch, which allows us to only build the forward pass of the loss (i.e., how we move from  to  and all the way to ) and automatically get the gradient 
-.
+We calculated the gradient of the loss function ∇_θ(l(x(T),a(T)) using LBFGS and ran the code for number of iterations = 40. We ran the code and got convergence on our results after around 23 iterations .
+
+
