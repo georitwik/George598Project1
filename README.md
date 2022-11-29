@@ -4,6 +4,7 @@ Consider a simple formulation of rocket landing where the rocket state  is repre
 , where  specifies time. The control input of the rocket is its acceleration . The discrete-time dynamics follows:
                                            
                                            d(t+1)= d(t) +v(t)∆t
+                                           v(t+1)= v(t) +a(t)∆t
 
  
 where  is a time interval. Further, let the closed-loop controller be
