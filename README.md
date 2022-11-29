@@ -16,9 +16,10 @@ where f_θ(.) is a neural network with parameters θ, which are to be determined
 For each time step, we assign a loss as a function of the control input and the state:l(x(t),a(t)) . In this example, we will simply set l(x(t),a(t))=0 for all t= 1,....,T-1, where T  is the final time step, and l(x(t),a(t)) =||x(t)||^2 = d(T)^2 + v(T)^2
 . This loss encourages the rocket to reach d(T)=0 and v(T)=0 , which are proper landing conditions.
 
-The optimization problem is now formulated as
+The optimization problem is now formulated as:
                                                     min ||x(T)||^2
  	                                                   θ
+                                                     
                                                    s.t.    d(t+1)= d(t) +v(t)∆t
                                                            v(t+1)= v(t) +a(t)∆t 
                                                            a(t)= f_θ (x(t)) ⩝t= 1,……….T-1
