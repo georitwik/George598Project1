@@ -11,8 +11,7 @@ where ∆t is a time interval. Further, let the closed-loop controller be
 
                                            a(t)= f_θ (x(t))
 
-where 
- is a neural network with parameters , which are to be determined through optimization.
+where f_θ(.)is a neural network with parameters θ, which are to be determined through optimization.
 
 For each time step, we assign a loss as a function of the control input and the state: . In this example, we will simply set  for all , where  is the final time step, and 
 . This loss encourages the rocket to reach  and , which are proper landing conditions.
