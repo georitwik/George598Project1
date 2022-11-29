@@ -7,7 +7,9 @@ Consider a simple formulation of rocket landing where the rocket state  is repre
                                            v(t+1)= v(t) +a(t)∆t
 
  
-where  is a time interval. Further, let the closed-loop controller be
+where ∆t is a time interval. Further, let the closed-loop controller be
+
+                                           a(t)= f_θ (x(t))
 
 where 
  is a neural network with parameters , which are to be determined through optimization.
