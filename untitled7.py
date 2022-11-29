@@ -88,11 +88,12 @@ class Dynamics(nn.Module):
         
         # Update state
         # Note: Same as above. Use operators on matrices/tensors as much as possible. Do not use element-wise operators as they are considered inplace.
-        step_mat = t.tensor([[1., FRAME_TIME],
-                            [0., 1.0]])
+        step_mat = t.tensor([[1., FRAME_TIME,0.,0.,0.],
+                            [0., 1.,0.,0.,0.],
+                            [0.,0.,1.,FRAME_TIME,0.],
+                            [0.,0.,0.,1.,0.],
+                            [0.,0.,0.,0.,1.]])
         state = t.matmul(step_mat, state)
-
-        return state
 
 # a deterministic controller
 # Note:
