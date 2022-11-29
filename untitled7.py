@@ -79,6 +79,7 @@ class Dynamics(nn.Module):
         den=1.225 #density of air at mean sea level
         a=6.16 #area of a PSLV rocket of ISRO (diameter=2.8m) info taken from website of ISRO
         drag_force=(-0.5)*c_d*den*a*(state1)^2
+        m=230000 #mass of a PSLV -CA rocket is 230,000 kg (info taken fron ISRO website)
                 
                                                               
         # Update velocity
