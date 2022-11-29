@@ -2,6 +2,14 @@
 
 Consider a simple formulation of rocket landing where the rocket state  is represented by its distance to the ground  and its velocity , i.e., 
 , where  specifies time. The control input of the rocket is its acceleration . The discrete-time dynamics follows
+ "\n",
+    "$$\n",
+    "\\begin{aligned}\n",
+    "d(t+1) = d(t) + v(t) \\Delta t, \\\\\n",
+    "v(t+1) = v(t) + a(t) \\Delta t,\n",
+    "\\end{aligned}\n",
+    "$$\n",
+    "\n",
 
  
 where  is a time interval. Further, let the closed-loop controller be
