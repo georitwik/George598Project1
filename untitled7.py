@@ -173,7 +173,7 @@ class Optimize:
 
     def step(self):
         def closure():
-            loss = self.simulation(self.simulation.state)
+            loss = self.simulation(self.simulation.state) # showing error - IndexError: too many indices for tensor of dimension 1
             self.optimizer.zero_grad()
             loss.backward()
             return loss
