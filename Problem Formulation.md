@@ -30,6 +30,7 @@ While this problem is constrained, it is easy to see that the objective function
 Equations for the problem :
 
 
+
    state x = [dx,dy,Vx,Vy,θ]^T
    action a = [α,∆θ]
    Drag   Fd= -1/2.Cd.ρ.A.(speed)^2
