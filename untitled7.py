@@ -76,15 +76,14 @@ class Dynamics(nn.Module):
         #drag force
         #drag force= -0.5*coefficient of drag*density of surrounding air*reference area*(velocity)^2
         c_d=0.75 #taking the typical value of coefficient of drag(c_d) for a rocket as given in the NASA website
-        d=1.225 #density of air at mean sea level
+        den=1.225 #density of air at mean sea level
         a=6.16 #area of a PSLV rocket of ISRO (diameter=2.8m) info taken from website of ISRO
-        drag_force=(-0.5)*c_d*d*a*(state1)^2
+        drag_force=(-0.5)*c_d*den*a*(state1)^2
                 
                                                               
         # Update velocity
-        
-      
-        state = state1 + delta_state + delta_state_gravity+delta_state_theta+drag_force
+        state = state1 + delta_state + delta_state_gravity+delta_state_theta+((drag_force)/m)*FRAME_TIME
+       
         
         # Update state
         # Note: Same as above. Use operators on matrices/tensors as much as possible. Do not use element-wise operators as they are considered inplace.
