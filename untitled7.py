@@ -142,7 +142,7 @@ class Simulation(nn.Module):
         self.action_trajectory = []
         self.state_trajectory = []
 
-    def forward(self, state):
+    def forward(action,self, state):
         self.action_trajectory = []
         self.state_trajectory = []
         for _ in range(T):
@@ -173,7 +173,7 @@ class Optimize:
         self.simulation = simulation
         self.parameters = simulation.controller.parameters()
         self.optimizer = optim.LBFGS(self.parameters, lr=0.01)
-
+        self.loss_list = []
     def step(self):
         def closure():
             loss = self.simulation(self.simulation.state) # showing error - IndexError: too many indices for tensor of dimension 1
@@ -184,9 +184,12 @@ class Optimize:
         return closure()
     
     def train(self, epochs):
+        l=np.zeros(epochs)
         for epoch in range(epochs):
+            self.epoch=epoch
             loss = self.step()
             print('[%d] loss: %.3f' % (epoch + 1, loss))
+            l[epoch]=loss
             self.visualize()
 
     def visualize(self):
