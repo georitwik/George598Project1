@@ -9,7 +9,7 @@ We take into consideration a simple formulation of rocket landing where the rock
  
 where ∆t is a time interval. Further, let the closed-loop controller be
 
-                                           a(t)= f_θ (X(t)), a(t)=[thrust ,𝜃']
+                                           a(t)= f_θ (X(t)), a(t)=[α,∆θ]
                                                                    
 
 where f_θ'(.) is a neural network with parameters θ, which are to be determined through optimization.
