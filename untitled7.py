@@ -16,8 +16,7 @@ import torch as t
 import torch.nn as nn
 from torch import optim
 from torch.nn import utils
-import matplotlib.pyplot as plt    # showing error for this line ?? package not installed??
-                                   #installed the required package. Initial code now running
+import matplotlib.pyplot as plt    
 
 logger = logging.getLogger(__name__)
 
@@ -48,9 +47,13 @@ class Dynamics(nn.Module):
     def forward(state, action):
 
         """
-        action: thrust or no thrust
-        state[0] = y
-        state[1] = y_dot
+        action[0]: thrust 
+        action [1]: theta_dot
+        state[0] = x
+        state[1] = y
+        state[2] = Vx
+        state[3] = Vy
+        state[4] = theta
         """
         
         # Apply gravity
@@ -60,30 +63,31 @@ class Dynamics(nn.Module):
         # Therefore, I define a tensor dx = [0., gravity * delta_time], and do x = x + dx. This is allowed... 
 
        
-        delta_state_gravity = t.tensor([0., GRAVITY_ACCEL * FRAME_TIME])
+        delta_state_gravity = t.tensor([0.,0.,0., GRAVITY_ACCEL * FRAME_TIME,0.])  #modified it according to our problem
 
         # Thrust
         # Note: Same reason as above. Need a 2-by-1 tensor.
-        N=len(state)
+       
         
-        state_tensor=t.zeros((N,5))
-        state_tensor=[:,1]=-t.sin(state[:,4]) #Vx(velocity in x-direction i.e. horizontal direction)
+        state_tensor=t.zeros((1,5))
+        state_tensor=[:,2]=-t.sin(state[:,4]) #Vx(velocity in x-direction i.e. horizontal direction)
         state_tensor=[:,3]=t.cos(state[:,4]) #Vy(velocity in y-direction i.e. vertical direction)
-        delta_state = BOOST_ACCEL * FRAME_TIME * t.mul(state_tensor([0., -1.]) , action[:,0].reshape(-1,1)) # we used reshape (-1,1) to arrange the data in a column matrix
+        delta_state = BOOST_ACCEL * FRAME_TIME * t.mul(state_tensor , action[:,0].reshape(-1,1)) # we used reshape (-1,1) to arrange the data in a column matrix
         # orientation(theta)
         delta_state_theta=FRAME_TIME*t.mul(t.tensor([0.,0.,0.,0.,-1.]),action[:,1].reshape(-1,1))     
-        state1=state #done to avoid in-line operation
+       
         #drag force
         #drag force= -0.5*coefficient of drag*density of surrounding air*reference area*(velocity)^2
+        Vy = t.matmul(state,t.tensor([0., 0., 0., 1., 0.]))
         c_d=0.75 #taking the typical value of coefficient of drag(c_d) for a rocket as given in the NASA website
         den=1.225 #density of air at mean sea level
         a=6.16 #area of a PSLV rocket of ISRO (diameter=2.8m) info taken from website of ISRO
-        drag_force=(-0.5)*c_d*den*a*(state1)^2
+        drag_force=(-0.5)*c_d*den*a*Vy*Vy
         m=230000 #mass of a PSLV -CA rocket is 230,000 kg (info taken fron ISRO website)
                 
                                                               
         # Update velocity
-        state = state1 + delta_state + delta_state_gravity+delta_state_theta+((drag_force)/m)*FRAME_TIME
+        state = state + delta_state + delta_state_gravity+delta_state_theta+((drag_force)/m)*FRAME_TIME
        
         
         # Update state
