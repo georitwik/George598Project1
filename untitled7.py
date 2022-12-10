@@ -119,7 +119,6 @@ class Controller(nn.Module):
             nn.Linear(dim_input, dim_hidden),
             nn.Tanh(),
             nn.Linear(dim_hidden, dim_output),
-            # You can add more layers here
             nn.Sigmoid()
         )
 
@@ -155,7 +154,7 @@ class Simulation(nn.Module):
 
     @staticmethod
     def initialize_state():
-        state = [1., 0.]  # TODO: need batch of initial states
+        state = [1.,1.,0.,0., 0.]  # TODO: need batch of initial states
         return t.tensor(state, requires_grad=False).float()
 
     def error(self, state):
@@ -199,9 +198,9 @@ class Optimize:
         # Now it's time to run the code!
 
 T = 100  # number of time steps
-dim_input = 2  # state space dimensions
+dim_input = 5  # state space dimensions
 dim_hidden = 6  # latent dimensions
-dim_output = 1  # action space dimensions
+dim_output = 2  # action space dimensions
 d = Dynamics()  # define dynamics
 c = Controller(dim_input, dim_hidden, dim_output)  # define controller
 s = Simulation(c, d, T)  # define simulation
